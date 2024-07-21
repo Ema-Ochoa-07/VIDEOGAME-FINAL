@@ -12,6 +12,7 @@ export class ResourceRoutes{
     const controller = new ResourceController(resourceService)
     
     router.post('/', controller.createResource)
+    router.get('/', controller.findResourcesAll)
 
     return router
     }

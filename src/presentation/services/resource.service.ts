@@ -15,6 +15,14 @@ export class ResourceService {
 
     return resource;
   }
+
+  async findResourceAll(){
+    try {
+      return await Resource.find()
+    } catch (error) {
+      throw CustomError.internalServer('Internal server Error 🧨')
+    }
+  }
   
 
   async CreateResources(createResourceDTO: CreateResourceDTO){
