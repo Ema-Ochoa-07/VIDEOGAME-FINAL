@@ -5,6 +5,7 @@
 import { Request, Response } from 'express';
 import { CustomError, JoinMember } from '../../domain';
 import { ClanService } from '../services/clan.service';
+import { CreateClanDTO } from '../../domain/dtos/clan/create-clan.dto';
 
 export class ClanController {
 
@@ -30,6 +31,19 @@ export class ClanController {
       .then(resp => res.status(200).json({ message: 'Member added to clan' }))
       .catch(error => this.handleError(error, res))
     
+  }
+
+  createClan = async (req:Request, res: Response)=>{
+    
+    const [error, createClanDTO] = CreateClanDTO.create(req.body)
+    if(error) return res.status(422).json({message:'Internal server Error'})
+
+    this.clanService.createClan(createClanDTO!)
+
+    .then(clan => {
+      return res.status(201).json(clan)
+    })
+    .catch(error => this.handleError(error, res))
   }
 
 }

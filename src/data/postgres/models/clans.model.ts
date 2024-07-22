@@ -13,7 +13,13 @@ export class Clan extends BaseEntity {
     length: 100,
     nullable: false,
   })
-  name: string;
+  name: string; 
+
+  @Column('varchar', {
+    length: 255,
+    nullable: false,
+  })
+  description: string; 
 
   @OneToMany(() => ClanMember, (clanMember) => clanMember.clan)
   clanMembers: ClanMember[];

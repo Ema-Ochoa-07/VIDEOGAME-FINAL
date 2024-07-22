@@ -1,5 +1,6 @@
-import { ClanMember, ClanMemberRole } from '../../data';
+import { Clan, ClanMember, ClanMemberRole } from '../../data';
 import { CustomError, JoinMember } from '../../domain';
+import { CreateClanDTO } from '../../domain/dtos/clan/create-clan.dto';
 import { PlayerService } from './player.service';
 
 
@@ -32,6 +33,23 @@ export class ClanService {
       return await clanMember.save()
     } catch (error) {
       throw CustomError.internalServer("Something went wrong")
+    }
+  }
+
+
+
+  async createClan(createClanDTO: CreateClanDTO){
+    
+    try {
+      
+      const clan = new Clan
+      clan.name = createClanDTO.name
+      clan.description = createClanDTO.description
+
+      return await clan.save()
+
+    } catch (error) {
+      throw CustomError.internalServer('Internal server Error 🧨')
     }
   }
 

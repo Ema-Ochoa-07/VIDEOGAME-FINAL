@@ -1,4 +1,4 @@
-import { Construction, Player } from '../../data';
+import { Player } from '../../data';
 import { CreatePlayerDTO, CustomError } from '../../domain';
 import { UserService } from './user.service';
 
