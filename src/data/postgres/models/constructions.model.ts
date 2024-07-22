@@ -5,7 +5,7 @@ import { Player } from './player.model';
 export class Construction extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
-
+ 
   @ManyToOne(() => Player, (player) => player.constructions)
   player: Player;
 

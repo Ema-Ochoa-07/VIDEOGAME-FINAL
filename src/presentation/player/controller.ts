@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { AddItemToIventory, CreatePlayerDTO, CustomError } from '../../domain';
 import { PlayerService } from '../services/player.service';
 import { InventoryService } from '../services/inventory.service';
+import { ConstructionService } from '../services/construction.service';
 
 
 
@@ -10,7 +11,8 @@ export class PlayerController {
 
   constructor(
     private readonly playerService: PlayerService,
-    private readonly inventoryService: InventoryService
+    private readonly inventoryService: InventoryService,
+    private readonly constructionService: ConstructionService
   ){}
 
   private handleError = (error: unknown, res: Response) => {
@@ -68,5 +70,17 @@ export class PlayerController {
     .catch((error) => this.handleError(error, res))
     
   }
+
+  getConstructionByIdPlayer = async(req:Request, res: Response) =>{
+    const { id } = req.params
+    if(isNaN(+id)){
+        return res.status(400).json({message:'El id no es un número'})
+    }
+    this.constructionService.findConstructionbyIdPlayer(+id)
+    .then(construction =>{
+        return res.status(200).json(construction)
+    })
+    .catch(error => this.handleError(error, res))
+}
 
 }

@@ -1,4 +1,4 @@
-import { Player } from '../../data';
+import { Construction, Player } from '../../data';
 import { CreatePlayerDTO, CustomError } from '../../domain';
 import { UserService } from './user.service';
 
@@ -60,7 +60,7 @@ export class PlayerService {
     if (player) throw CustomError.badRequest("This name is already taken")
 
     return player;
-  }
+  }  
 
 
 }

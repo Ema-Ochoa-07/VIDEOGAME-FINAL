@@ -8,6 +8,7 @@ import { InventoryRoutes } from './inventory/controller';
 import { ClanRoutes } from './clan/route';
 import { QuestRoutes } from './quest/routes';
 import { ResourceRoutes } from './resource/routes';
+import { ConstructionRoutes } from './construction/router';
 
 
 export class AppRoutes {
@@ -21,6 +22,7 @@ export class AppRoutes {
     router.use('/api/v1/clan', ClanRoutes.routes)
     router.use('/api/v1/quest', QuestRoutes.routes)
     router.use('/api/v1/resources',ResourceRoutes.routes)
+    router.use('/api/v1/constructions', ConstructionRoutes.routes)
 
     return router;
   }

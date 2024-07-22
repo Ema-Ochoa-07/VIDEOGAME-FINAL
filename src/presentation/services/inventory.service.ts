@@ -1,4 +1,4 @@
-import { Inventory, Item, Player, Resource } from '../../data';
+import { Construction, Inventory, Item, Player, Resource } from '../../data';
 import { Inventory_item } from '../../data/postgres/models/inventoryItem.model';
 import { Inventory_resource } from '../../data/postgres/models/inventoryResource.model';
 import { AddItemToIventory, CustomError } from '../../domain';
