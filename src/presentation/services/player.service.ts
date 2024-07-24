@@ -63,4 +63,30 @@ export class PlayerService {
   }  
 
 
+  async findQuestByIdPlayer(idPlayer: number){
+        
+    try {
+        
+        const player = await Player.findOne({
+            where:{
+                id: idPlayer
+            },
+            relations: ['quest_players'],
+            select:{
+              quest_players:{
+                completed: true
+              }
+            }
+        })
+        
+        if(!player) throw CustomError.notFound('Player not found')
+        
+        const questPlayer = player.quest_players
+        return questPlayer
+
+    } catch (error) {
+        throw CustomError.internalServer('Internal server Error 🧨')
+    }
+}
+
 }

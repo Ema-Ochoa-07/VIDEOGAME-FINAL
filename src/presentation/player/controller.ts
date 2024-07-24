@@ -4,6 +4,7 @@ import { AddItemToIventory, CreatePlayerDTO, CustomError } from '../../domain';
 import { PlayerService } from '../services/player.service';
 import { InventoryService } from '../services/inventory.service';
 import { ConstructionService } from '../services/construction.service';
+import { QuestPlayerService } from '../services/quest-Player.service';
 
 
 
@@ -12,7 +13,8 @@ export class PlayerController {
   constructor(
     private readonly playerService: PlayerService,
     private readonly inventoryService: InventoryService,
-    private readonly constructionService: ConstructionService
+    private readonly constructionService: ConstructionService,
+    private readonly questPlayerService: QuestPlayerService
   ){}
 
   private handleError = (error: unknown, res: Response) => {
@@ -83,4 +85,18 @@ export class PlayerController {
     .catch(error => this.handleError(error, res))
 }
 
+
+  findQuestByIdPLayer = async (req:Request, res: Response) => {
+    const { id } =  req.params
+    if(isNaN(+id)){
+      return res.status(400).json({message:'El id no es un número'})
+    }
+
+    this.questPlayerService.findQuestByIdPlayer(+id)
+    .then(quest => {
+      return res.status(200).json(quest)
+    })    
+    .catch(error => this.handleError(error, res))
+
+  }
 }

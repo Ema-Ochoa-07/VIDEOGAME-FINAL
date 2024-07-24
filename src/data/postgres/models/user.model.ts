@@ -2,6 +2,17 @@ import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGenerat
 import { Player } from './player.model';
 
 
+export enum UserRole{
+  ADMIN = 'ADMIN',
+  INVITED = 'INVITED'
+}
+
+export enum UserStatus{
+  ACTIVE = 'ACTVE',
+  INACTIVE = 'INACTIVE'
+}
+
+
 @Entity()
 export class User extends BaseEntity {
 
@@ -27,6 +38,21 @@ export class User extends BaseEntity {
     nullable: false,
   })
   email: string;
+
+
+  @Column('enum',{
+   enum: UserRole,
+   default: UserRole.INVITED
+  })
+  role: UserRole
+
+
+  @Column('enum',{
+   enum: UserStatus,
+   default: UserStatus.ACTIVE
+  })
+  status: UserStatus
+
 
   @OneToMany(() => Player, (player) => player.user)
   players: Player[];

@@ -51,8 +51,11 @@ export class ClanController {
   findClanByMember = async (req: Request, res: Response) =>{
     
     const { id } = req.params
-    if(!id) return res.status(400).json({message: 'El id no es un número'})
-
+    
+    if(isNaN(+id)){
+      return res.status(400).json({message:'El id no es un número'})
+    }
+    
     this.clanMemberService.findClanByIdMember(+id)
     .then(clanMember =>{
       return res.status(200).json(clanMember)

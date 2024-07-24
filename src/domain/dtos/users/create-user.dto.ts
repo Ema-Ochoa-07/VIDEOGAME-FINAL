@@ -1,3 +1,4 @@
+import { regularExps } from "../../../config";
 
 
 export class CreateUserDTO {
@@ -14,6 +15,9 @@ export class CreateUserDTO {
     if( !username ) return ['Missing username']
     if( !email ) return ['Missing email']
     if( !password ) return ['Missing password']
+
+    if(!regularExps.email.test(email)) return ['Invalid Email']
+    if(!regularExps.password.test(password)) return  ['The password must be at least 10 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character']
 
     return [undefined, new CreateUserDTO(username, email, password)]
   }

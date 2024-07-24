@@ -8,6 +8,7 @@ import { InventoryService } from '../services/inventory.service';
 import { ItemService } from '../services/item.service';
 import { ResourceService } from '../services/resource.service';
 import { ConstructionService } from '../services/construction.service';
+import { QuestPlayerService } from '../services/quest-Player.service';
 
 
 export class PlayerRoutes {
@@ -21,7 +22,8 @@ export class PlayerRoutes {
     const resourceService = new ResourceService();
     const inventoryService = new InventoryService(itemService, resourceService);
     const constructionService = new ConstructionService()
-    const playerController = new PlayerController(playerService, inventoryService, constructionService)
+    const questPlayerService = new QuestPlayerService()
+    const playerController = new PlayerController(playerService, inventoryService, constructionService, questPlayerService)
 
     router.post('/', playerController.createPlayer)
     router.get('/:id', playerController.findOnePlayer)
@@ -29,6 +31,7 @@ export class PlayerRoutes {
     router.post('/:id/invetory/items', playerController.addItemToInventory)
     router.get('/:id/inventory', playerController.getInventoryByPlayerId)
     router.get('/:id/constructions',playerController.getConstructionByIdPlayer)
+    router.get('/:id/quest', playerController.findQuestByIdPLayer)
 
     return router;
   }

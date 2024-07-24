@@ -1,10 +1,21 @@
-import { bcryptAdapter } from '../../config/bcrypt.adapter';
+
+import { bcryptAdapter } from '../../config';
 import { JwtAdapter } from '../../config/jwt.adapter';
 import { User } from '../../data';
 import { CreateUserDTO, CustomError, LoginUserDTO } from '../../domain';
 
-export class UserService {
 
+export enum UserRole{
+  ADMIN = 'ADMIN',
+  INVITED = 'INVITED'
+}
+
+export enum UserStatus{
+  ACTIVE = 'ACTVE',
+  INACTIVE = 'INACTIVE'
+}
+
+export class UserService {
 
   async findeOneUser (id: number) {
     const user = await User.findOne({
@@ -51,10 +62,15 @@ export class UserService {
     const { email, username } = createUserDTO;
 
     const existUser = await User.findOne({
-      where: [
-        { email },
-        { username }
-      ]
+      // where: [
+      //   { email },
+      //   { username }
+      // ]
+      where:{
+        email:createUserDTO.email,
+        username: createUserDTO.username,
+        status:UserStatus.ACTIVE
+      }
     });
 
     if (existUser) {
